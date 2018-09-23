@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Form from "react-jsonschema-form";
+import Notifications, {notify} from 'react-notify-toast';
 
 const schema = {
   title: "Simulador de eventos",
@@ -117,6 +118,8 @@ const schema = {
 };
 const log = (type) => console.log.bind(console, type);
 
+//const notifyError = (message) => notify.show(message, 'error');
+
 const send = ({formData}) => fetch(process.env.REACT_APP_EVENT_API_URL, {
   method: 'POST',
   headers: {
@@ -124,16 +127,19 @@ const send = ({formData}) => fetch(process.env.REACT_APP_EVENT_API_URL, {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify(formData)
-})
+}).then((response) => notify.show('Evento enviado', 'success'))
 
 
 class App extends Component {
   render() {
     return (
+      <div className='main'>
+      <Notifications />
       <Form schema={schema}
         onChange={log("changed")}
         onSubmit={send}
-        onError={log("errors")} />
+        onError={log("Error")} />
+      </div>
     );
   }
 }
