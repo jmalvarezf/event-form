@@ -107,7 +107,7 @@ const schema = {
           "category": {
             "$id": "#/properties/products/items/properties/category",
             "type": "string",
-            "title": "The Category Schema",
+            "title": "Categoria del producto",
             "enum": ["ELECTRONICS", "SPORTS", "FOOD", "FASHION", "COSMETICS"],
             "default": "SPORTS"
           }
